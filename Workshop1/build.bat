@@ -1,1 +1,1 @@
-clang -Wall -std=c++14 main.cpp -o executable.exe
+clang -g -Wall -std=c++14 main.cpp -o executable.exe

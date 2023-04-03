@@ -3,7 +3,7 @@
 
 namespace WideCharactersDemo
 {
-    void ExecuteExamples()
+    void Execute()
     {
         printf("\nThis file is placeholder.\n");
     }

@@ -9,58 +9,77 @@
 #include <iostream> // so we can print with COUT
 #include <iomanip> // so we can have text alignment
 #include <typeinfo> // so we can decypher <TYPENAME T>
+#include <limits> // for retrieving the numberic limits
 
 //==========================================================
 
-const uint8_t gWidth = 25;
+#define COLUMN_WIDTH 25
     
 //==========================================================
 
 template<typename t>
-void PrintSignedIntInfo(t MinValue, t MaxValue)
+void PrintIntInfo()
 {
-    std::cout << std::left << std::setw(gWidth) << typeid(t).name() << "MinValue = " << std::setw(gWidth) << (int64_t)MinValue << "MaxValue = " << (int64_t)MaxValue << std::endl;
+    std::cout << std::left << std::setw(COLUMN_WIDTH) << typeid(t).name() << "MinValue = " << std::setw(COLUMN_WIDTH) << (int64_t)std::numeric_limits<t>::min() << "MaxValue = " << (int64_t)std::numeric_limits<t>::max() << std::endl;
 }
-
-//==========================================================
 
 template<typename t>
-void PrintUnsignedIntInfo(t MinValue, t MaxValue)
+void PrintIntInfoUnsigned()
 {
-    std::cout << std::left << std::setw(gWidth) << typeid(t).name() << "MinValue = " << std::setw(gWidth) << (uint64_t)MinValue << "MaxValue = " << (uint64_t)MaxValue << std::endl;
+    std::cout << std::left << std::setw(COLUMN_WIDTH) << typeid(t).name() << "MinValue = " << std::setw(COLUMN_WIDTH) << (uint64_t)std::numeric_limits<t>::min() << "MaxValue = " << (uint64_t)std::numeric_limits<t>::max() << std::endl;
 }
 
 //==========================================================
 
-#define PRINT_SIGNED_INT_INFO(Type, MinValue, MaxValue) std::cout << std::left << std::setw(gWidth) << #Type << "MinValue = " << std::setw(gWidth) << (int64_t)MinValue << "MaxValue = " << (int64_t)MaxValue << std::endl;
-#define PRINT_UNSIGNED_INT_INFO(Type, MinValue, MaxValue) std::cout << std::left << std::setw(gWidth) << #Type << "MinValue = " << std::setw(gWidth) << (uint64_t)MinValue << "MaxValue = " << (uint64_t)MaxValue << std::endl;
+#define PRINT_INT_INFO(Type)\
+std::cout << std::left << std::setw(COLUMN_WIDTH) << #Type << "MinValue = " << std::setw(COLUMN_WIDTH) << (int64_t)std::numeric_limits<Type>::min() << "MaxValue = " << (int64_t)std::numeric_limits<Type>::max() << std::endl;
+
+#define PRINT_INT_INFO_UNSIGNED(Type)\
+std::cout << std::left << std::setw(COLUMN_WIDTH) << #Type << "MinValue = " << std::setw(COLUMN_WIDTH) << (uint64_t)std::numeric_limits<Type>::min() << "MaxValue = " << (uint64_t)std::numeric_limits<Type>::max() << std::endl;
 
 //==========================================================
 
 namespace NumbersDemo
 {
-    void ExecuteExamples()
+    void Execute()
     {
-        PrintSignedIntInfo<int8_t>(INT8_MIN, INT8_MAX);
-        PrintSignedIntInfo<int16_t>(INT16_MIN, INT16_MAX);
-        PrintSignedIntInfo<int32_t>(INT32_MIN, INT32_MAX);
-        PrintSignedIntInfo<int64_t>(INT64_MIN, INT64_MAX);
+        int8_t min8 = INT8_MIN;
+        int8_t max8 = INT8_MAX;
+        uint8_t umin8 = 0; // MIN unsigned is not defined in stdint.h
+        uint8_t umax8 = UINT8_MAX;
+        int16_t min16 = INT16_MIN;
+        // ETC ETC ETC...
+
+        PrintIntInfo<int8_t>();
+        PrintIntInfo<int16_t>();
+        PrintIntInfo<int32_t>();
+        PrintIntInfo<int64_t>();
+        PrintIntInfo<uint8_t>();
+        PrintIntInfo<uint16_t>();
+        PrintIntInfo<uint32_t>();
+        PrintIntInfo<uint64_t>();
         printf("\n\n");
-        PrintUnsignedIntInfo<uint8_t>(0, UINT8_MAX);
-        PrintUnsignedIntInfo<uint16_t>(0, UINT16_MAX);
-        PrintUnsignedIntInfo<uint32_t>(0, UINT32_MAX);
-        PrintUnsignedIntInfo<uint64_t>(0, UINT64_MAX);
-        printf("\n\n\n\n");
-        PRINT_SIGNED_INT_INFO(int8_t, INT8_MIN, INT8_MAX);
-        PRINT_SIGNED_INT_INFO(int16_t, INT16_MIN, INT16_MAX);
-        PRINT_SIGNED_INT_INFO(int32_t, INT32_MIN, INT32_MAX);
-        PRINT_SIGNED_INT_INFO(int64_t, INT64_MIN, INT64_MAX);
-        printf("\n\n");
-        PRINT_SIGNED_INT_INFO(int8_t, 0, UINT8_MAX);
-        PRINT_SIGNED_INT_INFO(int16_t, 0, UINT16_MAX);
-        PRINT_SIGNED_INT_INFO(int32_t, 0, UINT32_MAX);
-        PRINT_SIGNED_INT_INFO(int64_t, 0, UINT64_MAX);
+        PRINT_INT_INFO(int8_t);
+        PRINT_INT_INFO(int16_t);
+        PRINT_INT_INFO(int32_t);
+        PRINT_INT_INFO(int64_t);
+        PRINT_INT_INFO(int8_t);
+        PRINT_INT_INFO(int16_t);
+        PRINT_INT_INFO(int32_t);
+        PRINT_INT_INFO(int64_t);
     }
 }
 
 //==========================================================
+// SUMMARY
+//==========================================================
+
+/*
+Try to avoid using char, short, int, long and long long
+Instead use stdint.h to have platform agnostic integers that closely resemble Unreal's integer format
+
+Preprocessors are pre-compile-time text substitution which can cut and paste code, unfortunately this code is unmappable by a debugger
+Templates are compile-time code generates which offer less in capabilities but are more stable and debuggable
+Preprocessors can define anything the programmer can, even the number 5
+Templates can only define object layous & instances of objects and layouts & instances of functions
+*/

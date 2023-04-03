@@ -7,11 +7,11 @@
 
 int main()
 {
-    PrintingTextDemo::ExecuteExamples();
-    NumbersDemo::ExecuteExamples();
-    StringsArraysAndMemoryDemo::ExecuteExamples();
-    MapsDemo::ExecuteExamples();
-    WideCharactersDemo::ExecuteExamples();
-    FileIODemo::ExecuteExamples();
+    //PrintingTextDemo::Execute();
+    NumbersDemo::Execute();
+    //StringsArraysAndMemoryDemo::Execute();
+    //MapsDemo::Execute();
+    //WideCharactersDemo::Execute();
+    //FileIODemo::Execute();
     return 0;
 }
