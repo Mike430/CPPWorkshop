@@ -1,6 +1,7 @@
 //==========================================================
 // C++ style writing
 //==========================================================
+
 #include <iostream> // Input Output Stream and STD namespace definitions. This also brings through all the C99 functions, like printf and puts
 #include <iomanip> // allows for embeds of instructions into output streams
 
@@ -30,6 +31,7 @@ void PrintInCPPStyle()
 //==========================================================
 // C99 style writing
 //==========================================================
+
 #include <stdio.h> // short for STandarD IO
 
 void PrintInC99Style()

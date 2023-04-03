@@ -39,6 +39,17 @@ std::cout << std::left << std::setw(COLUMN_WIDTH) << #Type << "MinValue = " << s
 
 //==========================================================
 
+void PrintMikesDirtySecret()
+{
+    #ifdef ENABLE_MIKES_DIRTY_SECRET
+    printf("\n\nCheese on toast is to be made in the Microwave.\n\n");
+    #else
+    printf("\n\n");
+    #endif // ENABLE_MIKES_DIRTY_SECRET
+}
+
+//==========================================================
+
 namespace NumbersDemo
 {
     void Execute()
@@ -67,6 +78,8 @@ namespace NumbersDemo
         PRINT_INT_INFO(int16_t);
         PRINT_INT_INFO(int32_t);
         PRINT_INT_INFO(int64_t);
+
+        PrintMikesDirtySecret();
     }
 }
 
@@ -82,4 +95,12 @@ Preprocessors are pre-compile-time text substitution which can cut and paste cod
 Templates are compile-time code generates which offer less in capabilities but are more stable and debuggable
 Preprocessors can define anything the programmer can, even the number 5
 Templates can only define object layous & instances of objects and layouts & instances of functions
+Preprocessors are fast as they are just dumb copy and paste
+Templates are slow as they run significantly more validation
+
+If you want something that doesn't belong in just one place or needs to be tailored to a location then use a preprocessor.
+Useful examples of a good preprocessor:
+1. constant numbers: #define INDEX_NONE -1
+2. bitshifted enums: #define #define BIT_SHIFT( x ) ( 1 << ( x ) )
+3. Compiler Flags:
 */
