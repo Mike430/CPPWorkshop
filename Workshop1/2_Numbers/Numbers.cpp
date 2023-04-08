@@ -104,3 +104,40 @@ Useful examples of a good preprocessor:
 2. bitshifted enums: #define #define BIT_SHIFT( x ) ( 1 << ( x ) )
 3. Compiler Flags:
 */
+
+
+
+
+
+#define MOODY_BASIC_MACRO 5 //Isolated enties are fine
+#define MOODY_BASIC_MACRO (5 + 17 * 36) // anything more complex that can be externally tampered with should be wraped
+#define SQUARE(x) (x * x)
+#define SQUARE(8) (8 * 8)
+#define SQUARE(4 + 4) (4 + 4 * 4 + 4)
+#define SQUARE((4 + 4)) ((4 + 4) * (4 + 4)) // inelegant
+#define SQUARE(x) ((x) * (x))
+#define SQUARE(4 + 4) ((4 + 4) * (4 + 4))
+
+// TYPE SAFETY WITH MACROS DOES NOT EXIST
+// * can either mean multiply or dereference. This may compile but not do what you want. And again, this is NOT debuggable
+
+#define UObject FStruct
+#define if while
+// https://gist.github.com/aras-p/6224951
+// Macros are ron burgundy
+
+// Compile time flags
+// Define functions comparing against Inline (inline is a copy and paste at compile time and is only a hint (unless you use the force inline keyword))
+// Defining global data (objects and functions)
+// Include manipulation (STB style includes)
+
+#define FUCKS_GIVEN 0
+const int FucksGivenGlobalConst = 0;
+enum { FucksGivenAnnonEnum = 0 };
+
+int main()
+{
+    printf("%d", FUCKS_GIVEN); // in asm we just have 0 put into printf
+    printf("%d", FucksGivenGlobalConst); // in asm we get a reference out to a place in memory somewhere
+    printf("%d", FucksGivenAnnonEnum); // in asm we get a reference to a register with no allocations, we keep type safety and because it's in register space we experience no perf hit in fetching it
+}

@@ -7,11 +7,11 @@
 
 int main()
 {
-    //PrintingTextDemo::Execute();
-    NumbersDemo::Execute();
+    PrintingTextDemo::Execute();
+    //NumbersDemo::Execute();
     //StringsArraysAndMemoryDemo::Execute();
     //MapsDemo::Execute();
-    //WideCharactersDemo::Execute();
+    //WideCharactersDemo::Execute(); //big endian vs little endian
     //FileIODemo::Execute();
     return 0;
 }
